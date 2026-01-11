@@ -5,7 +5,7 @@ export type TEmployeeDetail = {
 }
 
 export type TNotice = {
-    id: string
+  id: string
   targetAudience: string
   title: string
   noticeType: string
