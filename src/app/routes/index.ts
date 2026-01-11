@@ -10,8 +10,8 @@ const modulesRoutes = [
   },
 ]
 
-modulesRoutes.forEach(route => {
-  router.use(route.path, route.function)
-})
+// modulesRoutes.forEach(route => {
+//   router.use(route.path, route.function)
+// })
 
 export default router

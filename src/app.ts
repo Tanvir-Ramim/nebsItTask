@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { Application, NextFunction, Request, Response } from 'express'
 import cors from 'cors'
-import {nodeENV} from "../src/app/config/index.ts"
 
 import router from './app/routes'
+
+import notFound from './app/middlwares/notFound'
+import globalErrorHandler from './app/middlwares/globalErrorhandler'
 
 const app: Application = express()
 
@@ -15,26 +17,17 @@ app.use(cors())
 
 //application routes
 
-app.use('/api/v1', router )
-
+app.use('/api/v1', router)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
-
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  const statusCode = err.statusCode || 500
-  const message = err.message || 'Something went wrong'
-
-  res.status(statusCode).json({
-    success: false,
-    message,
-    error: err?.error || null,
-    stack: nodeENV === 'development' ? err.stack : undefined,
-  })
+  globalErrorHandler(err, req, res, next)
 })
 
-
+//not found route
+app.use(notFound)
 
 export default app
