@@ -5,7 +5,7 @@ export type TEmployeeDetail = {
 }
 
 export type TNotice = {
-  id: string
+  status: 'Published' | 'Unpublished' | 'Draft'
   targetAudience: string
   title: string
   noticeType: string
@@ -14,4 +14,3 @@ export type TNotice = {
   noticeBody: string
   attachmentUrl?: string
 }
-

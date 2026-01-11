@@ -16,16 +16,14 @@ const employeeDetailSchema = new Schema<TEmployeeDetail>(
       required: true,
     },
   },
-  { _id: false } 
+  { _id: false },
 )
-
 
 const noticeSchema = new Schema<TNotice>(
   {
-    id: {
+    status: {
       type: String,
       required: true,
-      unique: true,
     },
     targetAudience: {
       type: String,
@@ -57,8 +55,7 @@ const noticeSchema = new Schema<TNotice>(
   },
   {
     timestamps: true,
-  }
+  },
 )
-
 
 export const NoticeModel = model<TNotice>('Notice', noticeSchema)

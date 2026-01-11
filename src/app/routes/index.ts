@@ -5,7 +5,7 @@ const router = Router()
 
 const modulesRoutes = [
   {
-    path: '/Notice',
+    path: '/notice',
     function: NoticeRoutes,
   },
 ]
