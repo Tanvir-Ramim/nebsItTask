@@ -19,7 +19,7 @@ const employeeDetailValidationSchema = z.object({
 })
 
 
-const noticeValidationSchema = z.object({
+ const createNoticeValidationSchema = z.object({
   id: z.string({
     required_error: 'Notice ID is required',
     invalid_type_error: 'Notice ID must be a string',
@@ -61,5 +61,5 @@ const noticeValidationSchema = z.object({
 })
 
 export const noticeZValidation = {
-  noticeValidationSchema,
+  createNoticeValidationSchema,
 }
