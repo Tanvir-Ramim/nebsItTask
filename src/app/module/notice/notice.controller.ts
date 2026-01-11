@@ -14,7 +14,7 @@ const createNotice = catchAsync(async (req, res, next) => {
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: 'Student created successfully',
+      message: 'Notice created successfully',
       data: result,
     })
   } catch (err) {
@@ -33,7 +33,22 @@ const getAllNotices = catchAsync(async (req, res, next) => {
     sendResponse(res, {
       statusCode: status.OK,
       success: true,
-      message: 'Student created successfully',
+      message: 'Notices retrieved successfully',
+      data: result,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+const getSingleNotices = catchAsync(async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const result = await NoticeServices.getSingleNoticesService(id)
+    sendResponse(res, {
+      statusCode: status.OK,
+      success: true,
+      message: 'Single Notice retrieved successfully',
       data: result,
     })
   } catch (err) {
@@ -44,4 +59,5 @@ const getAllNotices = catchAsync(async (req, res, next) => {
 export const NoticeController = {
   createNotice,
   getAllNotices,
+  getSingleNotices,
 }

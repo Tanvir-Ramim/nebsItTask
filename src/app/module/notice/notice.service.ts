@@ -34,12 +34,16 @@ const getAllNoticesService = async (filter: {
     query.createdAt = { $gte: start, $lte: end }
   }
 
-
-
   return await NoticeModel.find(query).sort({ createdAt: -1 })
+}
+
+const getSingleNoticesService = async (id: string) => {
+  const result = await NoticeModel.findById(id)
+  return result
 }
 
 export const NoticeServices = {
   createNoticeService,
   getAllNoticesService,
+  getSingleNoticesService,
 }

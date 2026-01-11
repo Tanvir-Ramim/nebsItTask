@@ -13,8 +13,8 @@ router.post(
   NoticeController.createNotice,
 )
 
-
-
 router.get('/all-notices', NoticeController.getAllNotices) //?status=&targetAudience=&publicedate=
+
+router.get("/single-notice/:id", NoticeController.getSingleNotices);
 
 export const NoticeRoutes = router
