@@ -13,8 +13,13 @@ router.post(
   NoticeController.createNotice,
 )
 
-router.get('/all-notices', NoticeController.getAllNotices) //?status=&targetAudience=&publicedate=
+router.get('/all-notices', NoticeController.getAllNotices)
+// ?status=&targetAudience=&date=&page=&limit=
 
-router.get("/single-notice/:id", NoticeController.getSingleNotices);
+router.get('/single-notice/:id', NoticeController.getSingleNotices)
+
+router.patch('/update-notice/:id', NoticeController.updateNotice) //update-notice/:id?statusData=
+
+router.delete('/delete-notices', NoticeController.deleteNotices)
 
 export const NoticeRoutes = router
