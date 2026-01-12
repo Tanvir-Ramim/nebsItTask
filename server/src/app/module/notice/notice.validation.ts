@@ -24,11 +24,15 @@ export const createNoticeValidationSchema = z.object({
   // }),
 
   body: z.object({
-    status: z.enum(['Published', 'Unpublished', 'Draft']),
-    targetAudience: z.string({
-      required_error: 'Target audience is required',
-      invalid_type_error: 'Target audience must be a string',
-    }),
+    status: z.enum(["Published", "Unpublished", "Draft"]),
+    targetAudience: z
+      .array(
+        z.string({
+          required_error: 'Target audience value is required',
+          invalid_type_error: 'Target audience must be a string',
+        }),
+      )
+      .min(1, { message: 'Target audience is required' }),
 
     title: z.string({
       required_error: 'Title is required',
@@ -40,7 +44,7 @@ export const createNoticeValidationSchema = z.object({
       invalid_type_error: 'Notice type must be a string',
     }),
 
-    publicDate: z.coerce.date({
+    publishDate: z.coerce.date({
       required_error: 'Public date is required',
       invalid_type_error: 'Public date must be a valid date',
     }),

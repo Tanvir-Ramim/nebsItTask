@@ -21,12 +21,13 @@ const employeeDetailSchema = new Schema<TEmployeeDetail>(
 
 const noticeSchema = new Schema<TNotice>(
   {
-    status: {
+     status: {
       type: String,
       required: true,
+      enum: ["Published", "Unpublished", "Draft"], 
     },
     targetAudience: {
-      type: String,
+      type: [String],
       required: true,
     },
     title: {
@@ -37,7 +38,7 @@ const noticeSchema = new Schema<TNotice>(
       type: String,
       required: true,
     },
-    publicDate: {
+    publishDate: {
       type: Date,
       required: true,
     },

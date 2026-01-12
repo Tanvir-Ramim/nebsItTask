@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import Table from "../../shared/components/Table";
 
 
 const Home = () => {
@@ -33,10 +35,11 @@ const Home = () => {
           >
             <span className="flex items-center"></span>
 
-            <span className="">Create Notice</span>
+            <Link to="/craete-notice" className="">Create Notice</Link>
           </button>
         </div>
       </div>
+      <Table></Table>
     </div>
   );
 };

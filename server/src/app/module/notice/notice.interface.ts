@@ -5,11 +5,11 @@ export type TEmployeeDetail = {
 }
 
 export type TNotice = {
-  status: 'Published' | 'Unpublished' | 'Draft'
-  targetAudience: string
+  status: "Published" | "Unpublished" | "Draft"
+  targetAudience: string[]
   title: string
   noticeType: string
-  publicDate: Date
+  publishDate: Date
   employeeDetail?: TEmployeeDetail
   noticeBody: string
   attachmentUrl?: string
