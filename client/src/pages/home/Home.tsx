@@ -33,7 +33,7 @@ const Home = () => {
           >
             <span className="flex items-center"></span>
 
-            <span className="">+ Create Notice</span>
+            <span className="">Create Notice</span>
           </button>
         </div>
       </div>
