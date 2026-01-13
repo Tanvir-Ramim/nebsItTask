@@ -4,7 +4,7 @@ import AppError from '../../erros/AppError'
 import { TNotice } from './notice.interface'
 import { NoticeModel } from './notice.modal'
 
-import fs from 'fs'
+import fs, { stat } from 'fs'
 import path from 'path'
 const createNoticeService = async (allNoticeData: TNotice) => {
   const result = await NoticeModel.create(allNoticeData)
@@ -67,6 +67,7 @@ const getSingleNoticesService = async (id: string) => {
 }
 //update notices
 const updateNoticeService = async (id: string, status: string) => {
+   console.log(status);
   const result = await NoticeModel.findByIdAndUpdate(
     id,
     { status },
@@ -87,7 +88,7 @@ const deleteNoticesService = async (ids: string[]) => {
     const notice = await NoticeModel.findById(id)
 
     if (!notice) {
-      continue 
+      continue
     }
 
     if (notice.attachmentUrl) {
@@ -113,10 +114,20 @@ const deleteNoticesService = async (ids: string[]) => {
   }
 }
 
+//view file
+const viewFileService = async (filename: string) => {
+  const filePath = path.join(process.cwd(), 'src/app/.store/files', filename)
+  if (!fs.existsSync(filePath)) {
+    throw new AppError('File not found', 404)
+  }
+  return filePath
+}
+
 export const NoticeServices = {
   createNoticeService,
   getAllNoticesService,
   getSingleNoticesService,
   updateNoticeService,
   deleteNoticesService,
+  viewFileService,
 }

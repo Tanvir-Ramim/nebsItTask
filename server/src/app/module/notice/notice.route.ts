@@ -22,4 +22,5 @@ router.patch('/update-notice/:id', NoticeController.updateNotice) //upd  ate-not
 
 router.delete('/delete-notices', NoticeController.deleteNotices)
 
+router.get('/view-file/:filename', NoticeController.viewFile)
 export const NoticeRoutes = router

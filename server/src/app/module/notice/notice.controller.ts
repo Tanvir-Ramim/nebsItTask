@@ -3,10 +3,13 @@ import sendResponse from '../../utils/sendResponse'
 
 import status from 'http-status'
 import { NoticeServices } from './notice.service'
+import fs from 'fs'
+import path from 'path'
+import AppError from '../../erros/AppError'
 
 //create notice
 const createNotice = catchAsync(async (req, res, next) => {
-  try {
+
     const noticeAllData = req.body
     if (req.file) {
       noticeAllData.attachmentUrl = req.file.filename
@@ -18,14 +21,12 @@ const createNotice = catchAsync(async (req, res, next) => {
       message: 'Notice created successfully',
       data: result,
     })
-  } catch (err) {
-    next(err)
-  }
+ 
 })
 
 // get all notices
 const getAllNotices = catchAsync(async (req, res, next) => {
-  try {
+
     const filterData = {
       status: req.query.status as string,
       targetAudience: req.query.targetAudience as string,
@@ -42,13 +43,10 @@ const getAllNotices = catchAsync(async (req, res, next) => {
       message: 'Notices retrieved successfully',
       data: result,
     })
-  } catch (err) {
-    next(err)
-  }
 })
 //get single notices
 const getSingleNotices = catchAsync(async (req, res, next) => {
-  try {
+
     const { id } = req.params
     const result = await NoticeServices.getSingleNoticesService(id)
     sendResponse(res, {
@@ -57,16 +55,15 @@ const getSingleNotices = catchAsync(async (req, res, next) => {
       message: 'Single Notice retrieved successfully',
       data: result,
     })
-  } catch (err) {
-    next(err)
-  }
+
 })
 
 //update notices
 const updateNotice = catchAsync(async (req, res, next) => {
-  try {
+ 
     const { id } = req.params
-    const { statusData } = req.query as { statusData: string }
+    const { statusData } = req.body as { statusData: string }
+      console.log(statusData);
     const result = await NoticeServices.updateNoticeService(id, statusData)
     sendResponse(res, {
       statusCode: status.OK,
@@ -74,14 +71,12 @@ const updateNotice = catchAsync(async (req, res, next) => {
       message: 'Single Notice update successfully',
       data: result,
     })
-  } catch (err) {
-    next(err)
-  }
+ 
 })
 
 //delete notices
 const deleteNotices = catchAsync(async (req, res, next) => {
-  try {
+
     const { ids } = req.body
 
     const result = await NoticeServices.deleteNoticesService(ids)
@@ -92,15 +87,35 @@ const deleteNotices = catchAsync(async (req, res, next) => {
       message: 'Notices deleted successfully',
       data: result,
     })
-  } catch (err) {
-    next(err)
-  }
+ 
+    
+
 })
 
+const viewFile = catchAsync(async (req, res) => {
+  const { filename } = req.params
+ 
+  if (filename.includes("..")) {
+    throw new AppError("Invalid file name", status.BAD_REQUEST);
+  }
+
+  const filePath = path.join(
+    process.cwd(),
+    "src/app/.store/files",
+    filename
+  );
+
+  if (!fs.existsSync(filePath)) {
+    throw new AppError("File not found", status.NOT_FOUND);
+  }
+  res.setHeader("Content-Disposition", "inline");
+  res.sendFile(filePath);
+})
 export const NoticeController = {
   createNotice,
   getAllNotices,
   getSingleNotices,
   updateNotice,
   deleteNotices,
+  viewFile,
 }

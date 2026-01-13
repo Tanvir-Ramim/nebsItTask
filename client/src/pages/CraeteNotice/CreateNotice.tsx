@@ -8,7 +8,7 @@ import { Select } from "antd";
 import Api from "../../shared/utils/api";
 import Swal from "sweetalert2";
 
-// Validation interface
+
 interface ValidationErrors {
   targetAudience?: string;
   title?: string;
@@ -18,14 +18,14 @@ interface ValidationErrors {
   employeeDetail?: string;
 }
 
-// Employee detail interface
+
 export type TEmployeeDetail = {
   employeeId: string;
   name: string;
   position: string;
 };
 
-// Form data interface
+
 interface NoticeFormData {
   targetAudience: string[];
   title: string;
@@ -40,7 +40,7 @@ interface NoticeFormData {
 const CreateNotice = () => {
   const INDIVIDUAL = "Individual";
 
-  // Form state
+
   const [formData, setFormData] = useState<NoticeFormData>({
     targetAudience: [],
     title: "",
@@ -66,7 +66,6 @@ const CreateNotice = () => {
       showCancelButton: false,
       showDenyButton: true,
 
-      // Custom buttons
       denyButtonText: "Close",
 
       footer: `
@@ -79,14 +78,14 @@ const CreateNotice = () => {
       didOpen: () => {
         document.getElementById("viewNotice")?.addEventListener("click", () => {
           Swal.close();
-          // navigate("/notices"); // 👉 your route
+          
         });
 
         document
           .getElementById("createAnother")
           ?.addEventListener("click", () => {
             Swal.close();
-            // reset form or navigate("/notice/create");
+            
           });
       },
     });
@@ -97,7 +96,7 @@ const CreateNotice = () => {
   );
   const [attachmentName, setAttachmentName] = useState<string>("");
 
-  // Handle target audience change
+
   const handleTargetChange = (selectedValues: string[]) => {
     const errors = { ...validationErrors };
     delete errors.targetAudience;
@@ -119,13 +118,13 @@ const CreateNotice = () => {
     setValidationErrors(errors);
   };
 
-  // Handle input changes
+  
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
-    // Clear validation error for this field
+
     const errors = { ...validationErrors };
     delete errors[name as keyof ValidationErrors];
     setValidationErrors(errors);
@@ -133,14 +132,14 @@ const CreateNotice = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle employee ID change
+
   const handleEmployeeIdChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     const errors = { ...validationErrors };
     delete errors.employeeDetail;
     setValidationErrors(errors);
 
-    // Find the selected employee
+
     const selectedEmployee = employeesDropDonw.find((emp) => emp.id === value);
 
     setFormData((prev) => ({
@@ -156,12 +155,12 @@ const CreateNotice = () => {
     }));
   };
 
-  // Handle file upload
+  
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
 
     if (file) {
-      // Validate file type
+     
       const validTypes = [
         "image/jpeg",
         "image/jpg",
@@ -173,7 +172,7 @@ const CreateNotice = () => {
         return;
       }
 
-      // Validate file size (5MB max)
+ 
       if (file.size > 5 * 1024 * 1024) {
         alert("File size too large. Maximum size is 5MB.");
         return;
@@ -184,49 +183,48 @@ const CreateNotice = () => {
     }
   };
 
-  // Remove uploaded file
+
   const handleRemoveFile = () => {
     setFormData((prev) => ({ ...prev, attachment: null }));
     setAttachmentName("");
   };
 
-  // Validation function
+
   const validateForm = (): boolean => {
     const errors: ValidationErrors = {};
     let isValid = true;
 
-    // Validate target audience
+
     if (!formData.targetAudience.length) {
       errors.targetAudience =
         "Please select at least one target department or individual";
       isValid = false;
     }
 
-    // Validate title
+  
     if (!formData.title.trim()) {
       errors.title = "Notice title is required";
       isValid = false;
     }
 
-    // Validate notice type
     if (!formData.noticeType) {
       errors.noticeType = "Please select a notice type";
       isValid = false;
     }
 
-    // Validate publish date
+  
     if (!formData.publishDate) {
       errors.publishDate = "Publish date is required";
       isValid = false;
     }
 
-    // Validate notice body
+
     if (!formData.noticeBody.trim()) {
       errors.noticeBody = "Notice body is required";
       isValid = false;
     }
 
-    // If Individual is selected, validate employee detail
+  
     if (
       formData.targetAudience.includes(INDIVIDUAL) &&
       !formData.employeeDetail
@@ -239,16 +237,15 @@ const CreateNotice = () => {
     return isValid;
   };
 
-  // Handle form submission
   const handleSubmit = async (action: "Draft" | "Published") => {
     if (!validateForm()) {
       return;
     }
 
-    // Prepare FormData
+  
     const formDataToSend = new FormData();
 
-    // Append form fields
+  
     formDataToSend.append(
       "targetAudience",
       JSON.stringify(formData.targetAudience)
@@ -262,7 +259,7 @@ const CreateNotice = () => {
       action === "Published" ? "Published" : "Draft"
     );
 
-    // Append employee detail as object if exists
+  
     if (formData.employeeDetail) {
       formDataToSend.append(
         "employeeDetail",
@@ -270,7 +267,7 @@ const CreateNotice = () => {
       );
     }
 
-    // Append attachment if exists
+    
     if (formData.attachment) {
       formDataToSend.append("attachmentUrl", formData.attachment);
     }
@@ -295,7 +292,7 @@ const CreateNotice = () => {
       </h2>
     </div>
 
-    {/* Form Body (Scrollable & Fixed Height) */}
+    
     <div className="flex-1 overflow-y-auto space-y-6 p-6">
       {/* Target */}
       <div className="bg-[#F4F5F9] h-[110px] px-4 py-3.5 rounded">
@@ -319,7 +316,7 @@ const CreateNotice = () => {
           ))}
         </Select>
 
-        {/* Error */}
+      
         <div className=" mt-1">
           <p
             className={`text-sm text-red-500 transition-all duration-300
@@ -334,7 +331,7 @@ const CreateNotice = () => {
         </div>
       </div>
 
-      {/* Notice Title */}
+  
       <div>
         <label className="mb-2 block text-sm font-medium">
           <span className="text-red-500">*</span> Notice Title
@@ -362,7 +359,7 @@ const CreateNotice = () => {
         </div>
       </div>
 
-      {/* Employee Info */}
+   
       <div
         className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out
           ${
@@ -372,7 +369,7 @@ const CreateNotice = () => {
           }`}
       >
         <div className="grid gap-4 md:grid-cols-3 pt-4">
-          {/* Employee ID */}
+     
           <div>
             <label className="mb-2 block text-sm font-medium">
               <span className="text-red-500">*</span> Select Employee ID
@@ -406,7 +403,7 @@ const CreateNotice = () => {
             </div>
           </div>
 
-          {/* Employee Name */}
+     
           <div>
             <label className="mb-2 block text-sm font-medium">
               <span className="text-red-500">*</span> Employee Name
@@ -419,7 +416,7 @@ const CreateNotice = () => {
             />
           </div>
 
-          {/* Position */}
+   
           <div>
             <label className="mb-2 block text-sm font-medium">
               <span className="text-red-500">*</span> Position
@@ -434,7 +431,7 @@ const CreateNotice = () => {
         </div>
       </div>
 
-      {/* Notice Type & Date */}
+    
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <label className="mb-2 block text-sm font-medium">
@@ -485,7 +482,7 @@ const CreateNotice = () => {
         </div>
       </div>
 
-      {/* Notice Body */}
+    
       <div>
         <label className="mb-2 block text-sm font-medium">
           <span className="text-red-500">*</span> Notice Body
@@ -508,7 +505,7 @@ const CreateNotice = () => {
         </div>
       </div>
 
-      {/* Upload */}
+ 
       <div>
         <label className="mb-2 block text-sm font-medium text-gray-700">
           Upload Attachments (optional)
@@ -534,8 +531,8 @@ const CreateNotice = () => {
           </label>
         </div>
 
-        {/* Reserved space (no jump) */}
-        <div className="min-h-[36px] mt-3">
+        
+        <div className="min-h-9 mt-3">
           {attachmentName && (
             <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-sm transition-all duration-300">
               📎 {attachmentName}
@@ -552,7 +549,7 @@ const CreateNotice = () => {
       </div>
     </div>
 
-    {/* Footer (Fixed) */}
+    
     <div className="flex flex-wrap items-center justify-end gap-3 border-t px-6 py-4">
       <button
         type="button"

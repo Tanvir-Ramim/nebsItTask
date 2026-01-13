@@ -24,7 +24,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      {/* ================= Header ================= */}
+    
       <div className="flex  items-center justify-center px-2 py-5 ">
         <NavLink to="/">
           <img src={logo} alt="Logo"  />
@@ -38,7 +38,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </button>
       </div>
 
-      {/* ================= Menu (Middle) ================= */}
+      
       <div className="flex flex-1 items-center">
         <nav className="w-full px-4">
           <ul className="flex flex-col gap-2">
@@ -56,7 +56,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </nav>
       </div>
 
-      {/* ================= Logout (Bottom Fixed) ================= */}
+
       <div className="px-4 pb-6">
         <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-red-50 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100">
           <HiOutlineLogout className="text-lg" />
@@ -69,7 +69,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 export default Sidebar;
 
-/* ================= Reusable Menu Item ================= */
+
 interface SidebarItemProps {
   to: string;
   icon: React.ReactNode;
