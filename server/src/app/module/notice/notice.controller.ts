@@ -101,7 +101,7 @@ const viewFile = catchAsync(async (req, res) => {
 
   const filePath = path.join(
     process.cwd(),
-    "src/app/.store/files",
+    "dist/app/.store/files",
     filename
   );
 
