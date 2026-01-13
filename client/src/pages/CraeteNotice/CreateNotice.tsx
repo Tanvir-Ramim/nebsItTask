@@ -138,7 +138,7 @@ const CreateNotice = () => {
   return (
     <>
       <NoticeFormHeader />
-      <div className="flex items-start justify-center">
+      <div className="flex  lg:mb-8 md:mb-7 sm:6 mb-4 items-start justify-center">
         <div className="mx-auto w-full rounded-lg border border-gray-300 bg-white shadow-sm flex flex-col">
           <NoticeForm
             formData={formData}

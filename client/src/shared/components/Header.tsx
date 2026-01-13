@@ -60,7 +60,7 @@ const Header = ({
         {/* Left */}
         <div className="flex items-center">
           <div className="lg:flex flex-col hidden">
-            <h1 className="text-xl font-semibold text-gray-800">
+            <h1 className="text-lg font-semibold text-gray-800">
               {getGreeting()} <span className="font-bold">Tanvir</span>
             </h1>
             <p className="text-sm text-gray-500">{formattedDate}</p>

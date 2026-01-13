@@ -15,7 +15,7 @@ const Layout = () => {
           <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
             <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <main>
-              <div className=" p-4 md:p-8 h-full bg-[#F5F6FA]  ">
+              <div className=" p-3 md:p-8 h-full bg-[#F5F6FA]  ">
                 <Outlet />
               </div>
             </main>

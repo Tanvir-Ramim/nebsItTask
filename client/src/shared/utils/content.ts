@@ -53,6 +53,46 @@ export const departmentsDropDown = [
   "Development",
   "SQA",
   "Marketing",
-  "Operations",
-  "Customer Support",
 ];
+
+export const noticeTypeStyles: Record<
+  string,
+  { text: string; bg: string }
+> = {
+  Published: {
+    text: "text-[#00A46E]",
+    bg: "bg-[#DAFAEF]",
+  },
+  Unpublished: {
+    text: "text-[#334155]",
+    bg: "bg-[#F0F0F0]",
+  },
+  Draft: {
+    text: "text-[#F59E0B]",
+    bg: "bg-[#F9EDE0]",
+  },
+};
+
+export type TEmployeeDetail = {
+  employeeId: string;
+  name: string;
+  position: string;
+};
+
+export type TNotice = {
+  _id: string;
+  status: "Published" | "Unpublished" | "Draft";
+  targetAudience: string[];
+  title: string;
+  noticeType: string;
+  publishDate: string;
+  employeeDetail?: TEmployeeDetail;
+  noticeBody: string;
+  attachmentUrl?: string;
+};
+export type TPageDetails = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+};
