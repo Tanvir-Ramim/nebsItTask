@@ -1,6 +1,6 @@
 export const TableSkeletonRow = () => {
   return (
-    <tr className="border-b animate-pulse">
+    <tr className="border-b border-b-gray-300 animate-pulse">
       <td className="md:p-4 p-2">
         <div className="flex items-center gap-2">
           <div className="h-4 w-4 bg-gray-300 rounded" />

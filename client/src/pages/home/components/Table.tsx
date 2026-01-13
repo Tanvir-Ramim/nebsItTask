@@ -74,13 +74,15 @@ const Table = () => {
     }
   };
 
+  const [menuIndex, setMenuIndex] = useState<number | null>(null);
 
-  const [menuIndex, setMenuIndex] = useState(null);
-
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const handleClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const handleClick = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setMenuIndex(null);
       }
     };
@@ -175,7 +177,7 @@ const Table = () => {
         });
 
         setSelectedIds([]);
-        getAllNotices && getAllNotices();
+        getAllNotices();
       }
     } catch (error) {
       console.error(error);

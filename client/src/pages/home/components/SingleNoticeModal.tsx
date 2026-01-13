@@ -1,6 +1,7 @@
 import { RxCross2 } from "react-icons/rx";
 import type { TNotice } from "../../../shared/utils/content";
 import Api from "../../../shared/utils/api";
+import { useState } from "react";
 
 interface SingleNoticeModalProps {
   isModalOpen: boolean;
@@ -14,9 +15,14 @@ const SingleNoticeModal = ({
   singleNotice,
 }: //   handleViewFile,
 SingleNoticeModalProps) => {
+  const [isViewingFile, setIsViewingFile] = useState(false);
+
   if (!isModalOpen || !singleNotice) return null;
+
   const handleViewFile = async (fileName: string) => {
     try {
+      setIsViewingFile(true);
+
       const res = await Api.get(`/notice/view-file/${fileName}`, {
         responseType: "blob",
       });
@@ -26,12 +32,13 @@ SingleNoticeModalProps) => {
       });
 
       const fileURL = URL.createObjectURL(blob);
-
       window.open(fileURL, "_blank");
 
       setTimeout(() => URL.revokeObjectURL(fileURL), 10000);
     } catch (error) {
       console.error("Error opening file:", error);
+    } finally {
+      setIsViewingFile(false);
     }
   };
   return (
@@ -125,12 +132,26 @@ SingleNoticeModalProps) => {
         >
           {singleNotice.attachmentUrl && (
             <button
+              disabled={isViewingFile}
               onClick={() =>
                 handleViewFile(singleNotice.attachmentUrl as string)
               }
-              className="px-4 py-2 cursor-pointer rounded-md bg-blue-600  text-sm font-medium hover:bg-blue-700 transition"
+              className={`px-4 py-2 rounded-md text-sm font-medium transition
+                ${
+                  isViewingFile
+                    ? "bg-blue-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }
+              `}
             >
-              <span className="text-white"> View File</span>
+              {isViewingFile ? (
+                <span className="flex items-center gap-2 text-white">
+                  <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Opening...
+                </span>
+              ) : (
+                <span className="cursor-pointer text-white">View File</span>
+              )}
             </button>
           )}
 

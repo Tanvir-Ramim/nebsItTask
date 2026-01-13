@@ -4,7 +4,6 @@ import cors from 'cors'
 
 import router from './app/routes'
 
-
 import globalErrorHandler from './app/middlwares/globalErrorhandler'
 import notFound from './app/middlwares/notFound'
 
@@ -14,7 +13,24 @@ const app: Application = express()
 
 app.use(express.json())
 
-app.use(cors())
+const allowedOrigins: string[] = [
+  "http://localhost:5173/",
+  "https://nebsit.netlify.app/",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true)
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    credentials: true,
+  }),
+)
 
 //application routes
 

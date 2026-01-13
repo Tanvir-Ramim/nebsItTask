@@ -32,7 +32,7 @@ const FilterSection = ({
 
       <div className="grid @6xl:grid-cols-4 @5xl:grid-cols-3 @md:grid-cols-2 items-center gap-3">
         <input
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm outline-none"
+          className="w-full cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm outline-none"
           type="date"
           value={date}
           onChange={(e) => {
@@ -42,7 +42,7 @@ const FilterSection = ({
         />
 
         <select
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm outline-none"
+          className="w-full cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm outline-none"
           value={status}
           onChange={(e) => {
             setPage(1);
@@ -56,7 +56,7 @@ const FilterSection = ({
         </select>
 
         <select
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm outline-none"
+          className="w-full cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm outline-none"
           value={department}
           onChange={(e) => {
             setPage(1);
