@@ -20,7 +20,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`fixed left-0 top-0 z-9999 flex h-screen w-60 flex-col bg-white shadow-xl duration-300 ease-in-out lg:static lg:translate-x-0 ${
+      className={`fixed left-0 top-0 z-9999 flex h-screen w-52 flex-col bg-white shadow-xl duration-300 ease-in-out lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

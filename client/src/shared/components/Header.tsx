@@ -144,7 +144,7 @@ const Header = ({
             <img
               src="https://i.pravatar.cc/150?img=12"
               alt="profile"
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-11 h-11 rounded-full object-cover"
             />
             <div className="leading-tight mt-1">
               Tanvir Hossan <span className="text-xs">(Developer)</span>

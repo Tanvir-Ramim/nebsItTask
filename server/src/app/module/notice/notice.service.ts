@@ -4,7 +4,7 @@ import AppError from '../../erros/AppError'
 import { TNotice } from './notice.interface'
 import { NoticeModel } from './notice.modal'
 
-import fs, { stat } from 'fs'
+import fs from 'fs'
 import path from 'path'
 const createNoticeService = async (allNoticeData: TNotice) => {
   const result = await NoticeModel.create(allNoticeData)
@@ -67,7 +67,6 @@ const getSingleNoticesService = async (id: string) => {
 }
 //update notices
 const updateNoticeService = async (id: string, status: string) => {
-   console.log(status);
   const result = await NoticeModel.findByIdAndUpdate(
     id,
     { status },

@@ -8,7 +8,7 @@ import path from 'path'
 import AppError from '../../erros/AppError'
 
 //create notice
-const createNotice = catchAsync(async (req, res, next) => {
+const createNotice = catchAsync(async (req, res) => {
 
     const noticeAllData = req.body
     if (req.file) {
@@ -25,7 +25,7 @@ const createNotice = catchAsync(async (req, res, next) => {
 })
 
 // get all notices
-const getAllNotices = catchAsync(async (req, res, next) => {
+const getAllNotices = catchAsync(async (req, res) => {
 
     const filterData = {
       status: req.query.status as string,
@@ -45,7 +45,7 @@ const getAllNotices = catchAsync(async (req, res, next) => {
     })
 })
 //get single notices
-const getSingleNotices = catchAsync(async (req, res, next) => {
+const getSingleNotices = catchAsync(async (req, res) => {
 
     const { id } = req.params
     const result = await NoticeServices.getSingleNoticesService(id)
@@ -59,7 +59,7 @@ const getSingleNotices = catchAsync(async (req, res, next) => {
 })
 
 //update notices
-const updateNotice = catchAsync(async (req, res, next) => {
+const updateNotice = catchAsync(async (req, res) => {
  
     const { id } = req.params
     const { statusData } = req.body as { statusData: string }
@@ -75,7 +75,7 @@ const updateNotice = catchAsync(async (req, res, next) => {
 })
 
 //delete notices
-const deleteNotices = catchAsync(async (req, res, next) => {
+const deleteNotices = catchAsync(async (req, res) => {
 
     const { ids } = req.body
 
