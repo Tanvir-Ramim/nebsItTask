@@ -34,7 +34,7 @@ const getAllNotices = catchAsync(async (req, res) => {
       page: Number(req.query.page) || 1,
       limit: Number(req.query.limit) || 10,
     }
-
+ 
     const result = await NoticeServices.getAllNoticesService(filterData)
 
     sendResponse(res, {

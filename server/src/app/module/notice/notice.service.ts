@@ -34,7 +34,8 @@ const getAllNoticesService = async (filter: {
     const end = new Date(filter.date)
     end.setHours(23, 59, 59, 999)
 
-    query.createdAt = { $gte: start, $lte: end }
+    // Change from createdAt to publishDate
+    query.publishDate = { $gte: start, $lte: end }
   }
 
   // pagination calculation
